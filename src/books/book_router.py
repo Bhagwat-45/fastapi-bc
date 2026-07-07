@@ -7,17 +7,17 @@ router = APIRouter(
     tags= ["Books"]
 )
 
-@router.get("/books", response_model=List[Book],status_code=status.HTTP_200_OK)
+@router.get("/", response_model=List[Book],status_code=status.HTTP_200_OK)
 async def get_books():
     return books
 
-@router.post("/books", status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED)
 async def get_book(book_data: Book) -> dict:
     new_book = book_data.model_dump()
     books.routerend(new_book)
     return new_book
 
-@router.get("/book/{book_id}")
+@router.get("/{book_id}")
 async def get_book(book_id: int) -> Book:
     for book in books:
         if book["id"] == book_id:
@@ -27,7 +27,7 @@ async def get_book(book_id: int) -> Book:
 
     
 
-@router.patch("/book/{book_id}")
+@router.patch("/{book_id}")
 async def update_book(book_id: int, book_update_data: BookUpdate):
     for book in books:
         if book["id"] == book_id:
@@ -42,7 +42,7 @@ async def update_book(book_id: int, book_update_data: BookUpdate):
 
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"The book with {book_id} wasn't found")
 
-@router.delete("/book/{book_id}",status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{book_id}",status_code=status.HTTP_204_NO_CONTENT)
 async def delete_book(book_id: int):
     for book in books:
         if book["id"] == book_id:
