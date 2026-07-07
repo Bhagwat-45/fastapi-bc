@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, HTTPException
 from typing import List
-from data import books
-from schemas.book_schema import Book, BookUpdate
+from src.books.data import books
+from src.books.book_schema import Book, BookUpdate
 
 router = APIRouter(
     tags= ["Books"]
