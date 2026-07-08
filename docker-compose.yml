@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   postgres:
     image: postgres:17
@@ -8,11 +6,11 @@ services:
 
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=root
       - POSTGRES_DB=bookstore
 
     ports:
-      - "5432:5432"
+      - "5433:5432"
     
     volumes:
       - postgres_data:/var/lib/postgresql/data
