@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from src.lifespan import life_span
 from src.books.book_router import router as book_router
+from src.auth.auth_router import auth_router
 
 version = "v1"
 
@@ -12,6 +13,7 @@ app = FastAPI(
 )
 
 app.include_router(router=book_router,prefix=f"/api/{version}/books")
+app.include_router(router=auth_router)
 
 @app.get("/")
 async def get_root():

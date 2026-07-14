@@ -9,6 +9,7 @@ dependencies = [
     "asyncpg>=0.31.0",
     "fastapi[standard]>=0.139.0",
     "greenlet>=3.5.3",
+    "passlib>=1.7.4",
     "pydantic-settings>=2.14.2",
     "sqlmodel>=0.0.39",
 ]
