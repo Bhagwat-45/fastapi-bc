@@ -4,7 +4,7 @@ from .services import UserService
 from sqlmodel.ext.asyncio.session import AsyncSession
 from src.db.main import get_session
 
-auth_router = APIRouter(prefix="/user")
+auth_router = APIRouter()
 user_service = UserService()
 
 
@@ -17,8 +17,7 @@ async def create_user_account(
 
     if user_exists:
         raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            description=f"User with email: {email} already exists",
+            status_code=status.HTTP_409_CONFLICT
         )
 
     new_user = await user_service.create_user(user_data, session)

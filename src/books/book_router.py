@@ -6,9 +6,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from src.books.book_schema import Book, BookUpdate,BookCreate
 from src.db.main import get_session
 
-router = APIRouter(
-    tags= ["Books"]
-)
+router = APIRouter()
 
 book_service = BookService()
 

@@ -4,8 +4,8 @@ from datetime import datetime
 
 class UserCreate(BaseModel):
     username: str = Field(max_length=15)
-    first_name: str
-    last_name: str
+    first_name: str = Field(max_length=20)
+    last_name: str = Field(max_length=20)
     email : str = Field(max_length=40)
     password: str = Field(min_length=6)
 

@@ -9,7 +9,7 @@ password_context = CryptContext(
 def generate_password_hash(
         password: str
 ) -> str:
-    hash = password_context(password)
+    hash = password_context.hash(password)
     return hash
 
 def verify_password_hash(

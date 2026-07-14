@@ -12,8 +12,8 @@ app = FastAPI(
     lifespan=life_span
 )
 
-app.include_router(router=book_router,prefix=f"/api/{version}/books")
-app.include_router(router=auth_router)
+app.include_router(router=book_router,prefix=f"/api/{version}/books",tags=["books"])
+app.include_router(router=auth_router,prefix=f"/api/{version}/auth",tags=["auth"])
 
 @app.get("/")
 async def get_root():
