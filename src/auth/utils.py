@@ -32,6 +32,7 @@ def create_passcode(user_data: dict, expiry: timedelta = None, refresh: bool = F
     payload['user'] = user_data
     payload['exp'] = datetime.now() + (expiry if expiry is not None else timedelta(seconds=Config.ACCESS_TOKEN_EXPIRY))
     payload['jti'] = str(uuid.uuid4())
+    payload['refresh'] = refresh 
 
     token = jwt.encode(
     payload=payload,

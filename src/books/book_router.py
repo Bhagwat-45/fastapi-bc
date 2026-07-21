@@ -14,7 +14,7 @@ book_service = BookService()
 access_token_bearer = AccessJWTBearer()
 
 @router.get("/", response_model=List[Book],status_code=status.HTTP_200_OK)
-async def get_books(session: AsyncSession = Depends(get_session), user_details: Depends(access_token_bearer)):
+async def get_books(user_details =  Depends(access_token_bearer) ,session: AsyncSession = Depends(get_session)):
     books = await book_service.get_all_books(session)
     return books
 
@@ -24,14 +24,14 @@ async def create_book(book_data: BookCreate,session: AsyncSession= Depends(get_s
     return new_book
 
 @router.get("/{book_uid}")
-async def get_book(book_uid: uuid.UUID,session: AsyncSession = Depends(get_session)) -> Book:
+async def get_book(book_uid: uuid.UUID,user_details =  Depends(access_token_bearer) ,session: AsyncSession = Depends(get_session)) -> Book:
     book = await book_service.get_book(book_uid,session)   
     if book is not None:
         return book
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"The book with {book_uid} wasn't found")
 
 @router.patch("/{book_id}")
-async def update_book(book_uid: uuid.UUID, book_update_data: BookUpdate,session: AsyncSession = Depends(get_session)):
+async def update_book(book_uid: uuid.UUID, book_update_data: BookUpdate,user_details =  Depends(access_token_bearer), session: AsyncSession = Depends(get_session)):
     updated_book = await book_service.update_book(book_uid,book_update_data,session)
     if updated_book is not None:
         return updated_book
@@ -39,7 +39,7 @@ async def update_book(book_uid: uuid.UUID, book_update_data: BookUpdate,session:
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,detail=f"The book with {book_uid} wasn't found")
 
 @router.delete("/{book_uid}",status_code=status.HTTP_204_NO_CONTENT)
-async def delete_book(book_uid: uuid.UUID,session: AsyncSession = Depends(get_session)):
+async def delete_book(book_uid: uuid.UUID,user_details =  Depends(access_token_bearer),session: AsyncSession = Depends(get_session)):
     book_to_delete = await book_service.delete_book(book_uid,session)
     
     if book_to_delete:
